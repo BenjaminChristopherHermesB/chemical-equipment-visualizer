@@ -1,0 +1,65 @@
+.csv-upload {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.csv-upload h2 {
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+}
+
+.upload-description {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.drop-zone {
+    border: 3px dashed #ccc;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.drop-zone:hover {
+    border-color: #646cff;
+    background: #f3f4ff;
+}
+
+.drop-zone.drag-active {
+    border-color: #646cff;
+    background: #e8eaff;
+    transform: scale(1.02);
+}
+
+.drop-zone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.upload-icon {
+    width: 64px;
+    height: 64px;
+    color: #646cff;
+}
+
+.drop-zone p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.selected-file {
+    color: #646cff !important;
+    font-weight: 600;
+}
+
+.upload-button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
