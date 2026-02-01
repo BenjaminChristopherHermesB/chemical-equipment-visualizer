@@ -66,4 +66,4 @@ Interested in the code or want to contribute? Check out our [Technical Documenta
 
 ---
 
-*Built with ❤️ by Benjamin B C H*
+*Built by Benjamin B C H*
