@@ -1,8 +1,9 @@
 .summary-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     margin-bottom: 24px;
+    max-width: 100%;
 }
 
 .stat-card {
@@ -11,6 +12,7 @@
     padding: 20px;
     box-shadow: var(--md-sys-elevation-2);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+    min-width: 0;
 }
 
 .stat-card:hover {
@@ -56,7 +58,19 @@
     margin: 4px 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+    .summary-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
     .summary-stats {
         grid-template-columns: 1fr;
     }

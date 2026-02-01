@@ -110,10 +110,10 @@ function Charts({ data, summary }) {
     };
 
     return (
-        <div className="charts">
+        <div className="charts-container">
             <h2>Data Visualizations</h2>
 
-            <div className="charts-grid">
+            <div className="chart-grid">
                 <div className="chart-card">
                     <h3>Flowrate Distribution</h3>
                     <div className="chart-container">
