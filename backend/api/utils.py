@@ -65,25 +65,25 @@ def compute_summary_statistics(df):
     Returns a dictionary with statistics.
     """
     stats = {
-        'total_count': len(df),
-        'equipment_types': df['Type'].value_counts().to_dict(),
+        'total_count': int(len(df)),
+        'equipment_types': {str(k): int(v) for k, v in df['Type'].value_counts().to_dict().items()},
         'flowrate': {
-            'mean': round(df['Flowrate'].mean(), 2) if not df['Flowrate'].isna().all() else 0,
-            'min': round(df['Flowrate'].min(), 2) if not df['Flowrate'].isna().all() else 0,
-            'max': round(df['Flowrate'].max(), 2) if not df['Flowrate'].isna().all() else 0,
-            'std': round(df['Flowrate'].std(), 2) if not df['Flowrate'].isna().all() else 0,
+            'mean': float(round(df['Flowrate'].mean(), 2)) if not df['Flowrate'].isna().all() else 0.0,
+            'min': float(round(df['Flowrate'].min(), 2)) if not df['Flowrate'].isna().all() else 0.0,
+            'max': float(round(df['Flowrate'].max(), 2)) if not df['Flowrate'].isna().all() else 0.0,
+            'std': float(round(df['Flowrate'].std(), 2)) if not df['Flowrate'].isna().all() else 0.0,
         },
         'pressure': {
-            'mean': round(df['Pressure'].mean(), 2) if not df['Pressure'].isna().all() else 0,
-            'min': round(df['Pressure'].min(), 2) if not df['Pressure'].isna().all() else 0,
-            'max': round(df['Pressure'].max(), 2) if not df['Pressure'].isna().all() else 0,
-            'std': round(df['Pressure'].std(), 2) if not df['Pressure'].isna().all() else 0,
+            'mean': float(round(df['Pressure'].mean(), 2)) if not df['Pressure'].isna().all() else 0.0,
+            'min': float(round(df['Pressure'].min(), 2)) if not df['Pressure'].isna().all() else 0.0,
+            'max': float(round(df['Pressure'].max(), 2)) if not df['Pressure'].isna().all() else 0.0,
+            'std': float(round(df['Pressure'].std(), 2)) if not df['Pressure'].isna().all() else 0.0,
         },
         'temperature': {
-            'mean': round(df['Temperature'].mean(), 2) if not df['Temperature'].isna().all() else 0,
-            'min': round(df['Temperature'].min(), 2) if not df['Temperature'].isna().all() else 0,
-            'max': round(df['Temperature'].max(), 2) if not df['Temperature'].isna().all() else 0,
-            'std': round(df['Temperature'].std(), 2) if not df['Temperature'].isna().all() else 0,
+            'mean': float(round(df['Temperature'].mean(), 2)) if not df['Temperature'].isna().all() else 0.0,
+            'min': float(round(df['Temperature'].min(), 2)) if not df['Temperature'].isna().all() else 0.0,
+            'max': float(round(df['Temperature'].max(), 2)) if not df['Temperature'].isna().all() else 0.0,
+            'std': float(round(df['Temperature'].std(), 2)) if not df['Temperature'].isna().all() else 0.0,
         },
     }
     
@@ -93,10 +93,28 @@ def compute_summary_statistics(df):
 def dataframe_to_dict(df):
     """
     Convert DataFrame to list of dictionaries for JSON storage.
+    Converts all numpy types to native Python types for JSON compatibility.
     """
     # Replace NaN with None for JSON compatibility
     df_clean = df.where(pd.notnull(df), None)
-    return df_clean.to_dict(orient='records')
+    records = df_clean.to_dict(orient='records')
+    
+    # Convert numpy types to native Python types
+    cleaned_records = []
+    for record in records:
+        cleaned_record = {}
+        for key, value in record.items():
+            if pd.isna(value) or value is None:
+                cleaned_record[key] = None
+            elif isinstance(value, (pd.np.integer, pd.np.int64, pd.np.int32)):
+                cleaned_record[key] = int(value)
+            elif isinstance(value, (pd.np.floating, pd.np.float64, pd.np.float32)):
+                cleaned_record[key] = float(value)
+            else:
+                cleaned_record[key] = value
+        cleaned_records.append(cleaned_record)
+    
+    return cleaned_records
 
 
 def generate_pdf_report(dataset):
