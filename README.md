@@ -9,8 +9,6 @@ Transform your raw equipment data into actionable insights instantly. Chemical E
 ## 👋 Welcome
 We believe that data analysis shouldn't specific technical skills. Whether you're monitoring pumps, valves, or tanks, our tool makes it effortless to visualize performance metrics like **Flowrate**, **Pressure**, and **Temperature** at a glance.
 
-![Visualizer Dashboard](https://placehold.co/1200x600/1e1e2e/ffffff?text=Dashboard+Preview)
-
 ---
 
 ## ✨ Key Features
@@ -53,11 +51,8 @@ Your data is yours.
 
 Experience the future of equipment monitoring today.
 
-**[Launch Web Application](https://chemical-equipment-visualizer.vercel.app)**  
+**[Launch Web Application](https://chemical-equipment-visualizer-nu.vercel.app/)**  
 *No installation required. Works on any modern browser.*
-
-**[Download Desktop App](#)**  
-*For offline access and dedicated workstations.*
 
 ---
 
