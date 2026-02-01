@@ -25,28 +25,30 @@ function CSVUpload({ onUploadSuccess }) {
         setDragActive(false);
 
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFile(e.dataTransfer.files[0]);
+            handleFileSelect(e.dataTransfer.files[0]);
         }
     };
 
-    const handleChange = (e) => {
-        e.preventDefault();
+    const handleFileSelect = (selectedFile) => {
+        if (selectedFile && selectedFile.name.endsWith('.csv')) {
+            setFile(selectedFile);
+            setError('');
+        } else {
+            setError('Please select a CSV file');
+        }
+    };
+
+    const handleFileInputChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            handleFile(e.target.files[0]);
+            handleFileSelect(e.target.files[0]);
         }
-    };
-
-    const handleFile = (selectedFile) => {
-        if (!selectedFile.name.endsWith('.csv')) {
-            setError('Please upload a CSV file');
-            return;
-        }
-        setFile(selectedFile);
-        setError('');
     };
 
     const handleUpload = async () => {
-        if (!file) return;
+        if (!file) {
+            setError('Please select a file first');
+            return;
+        }
 
         setUploading(true);
         setError('');
@@ -59,26 +61,23 @@ function CSVUpload({ onUploadSuccess }) {
                 fileInputRef.current.value = '';
             }
         } catch (err) {
-            setError(
-                err.response?.data?.error ||
-                'Failed to upload file. Please check the CSV format.'
-            );
+            setError(err.response?.data?.error || 'Upload failed');
         } finally {
             setUploading(false);
         }
     };
 
     return (
-        <div className="csv-upload">
-            <h2>Upload Equipment Data</h2>
-            <p className="upload-description">
-                Upload a CSV file with columns: Equipment Name, Type, Flowrate, Pressure, Temperature
-            </p>
+        <div className="csv-upload-container">
+            <div className="upload-header">
+                <h2>Upload Chemical Equipment Data</h2>
+                <p>Upload a CSV file with columns: Equipment Name, Type, Flowrate, Pressure, Temperature</p>
+            </div>
 
             {error && <div className="error-message">{error}</div>}
 
             <div
-                className={`drop-zone ${dragActive ? 'drag-active' : ''}`}
+                className={`drop-zone ${dragActive ? 'drag-active' : ''} ${file ? 'has-file' : ''}`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
@@ -89,28 +88,38 @@ function CSVUpload({ onUploadSuccess }) {
                     ref={fileInputRef}
                     type="file"
                     accept=".csv"
-                    onChange={handleChange}
+                    onChange={handleFileInputChange}
                     style={{ display: 'none' }}
                 />
 
-                <div className="drop-zone-content">
-                    <svg className="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    <p>Drag and drop your CSV file here, or click to browse</p>
-                    {file && <p className="selected-file">Selected: {file.name}</p>}
-                </div>
+                {file ? (
+                    <div className="file-info">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+                        </svg>
+                        <div className="file-details">
+                            <p className="file-name">{file.name}</p>
+                            <p className="file-size">{(file.size / 1024).toFixed(2)} KB</p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="drop-zone-content">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.6">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
+                        </svg>
+                        <p className="drop-zone-title">Drag and drop your CSV file here</p>
+                        <p className="drop-zone-subtitle">or click to browse</p>
+                    </div>
+                )}
             </div>
 
-            {file && (
-                <button
-                    onClick={handleUpload}
-                    disabled={uploading}
-                    className="primary upload-button"
-                >
-                    {uploading ? 'Uploading...' : 'Upload and Process'}
-                </button>
-            )}
+            <button
+                className="upload-button"
+                onClick={handleUpload}
+                disabled={!file || uploading}
+            >
+                {uploading ? 'Uploading...' : 'Upload and Analyze'}
+            </button>
         </div>
     );
 }

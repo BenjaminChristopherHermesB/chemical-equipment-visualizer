@@ -1,65 +1,136 @@
-.csv-upload {
+.csv-upload-container {
     max-width: 800px;
     margin: 0 auto;
 }
 
-.csv-upload h2 {
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
+.upload-header {
+    text-align: center;
+    margin-bottom: 32px;
 }
 
-.upload-description {
-    color: #666;
-    margin-bottom: 2rem;
+.upload-header h2 {
+    font-family: var(--md-sys-typescale-headline-large-font);
+    font-size: var(--md-sys-typescale-headline-large-size);
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 12px;
+}
+
+.upload-header p {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: var(--md-sys-typescale-body-medium-size);
+}
+
+.error-message {
+    padding: 12px 16px;
+    border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
+    margin-bottom: 16px;
 }
 
 .drop-zone {
-    border: 3px dashed #ccc;
-    border-radius: 12px;
-    padding: 3rem 2rem;
+    border: 2px dashed var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: 48px 24px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #f9f9f9;
+    background-color: var(--md-sys-color-surface-container);
+    margin-bottom: 24px;
 }
 
 .drop-zone:hover {
-    border-color: #646cff;
-    background: #f3f4ff;
+    border-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-surface-container-high);
 }
 
 .drop-zone.drag-active {
-    border-color: #646cff;
-    background: #e8eaff;
-    transform: scale(1.02);
+    border-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-primary-container);
+    border-width: 3px;
+}
+
+.drop-zone.has-file {
+    border-style: solid;
+    border-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-secondary-container);
 }
 
 .drop-zone-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 16px;
+    color: var(--md-sys-color-on-surface-variant);
 }
 
-.upload-icon {
-    width: 64px;
-    height: 64px;
-    color: #646cff;
+.drop-zone-title {
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
 }
 
-.drop-zone p {
-    color: #666;
-    font-size: 1.1rem;
+.drop-zone-subtitle {
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
 }
 
-.selected-file {
-    color: #646cff !important;
-    font-weight: 600;
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+.file-details {
+    text-align: left;
+}
+
+.file-name {
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    margin: 0 0 4px 0;
+    word-break: break-all;
+}
+
+.file-size {
+    font-size: var(--md-sys-typescale-body-medium-size);
+    opacity: 0.7;
+    margin: 0;
 }
 
 .upload-button {
     width: 100%;
-    margin-top: 1.5rem;
-    padding: 1rem;
-    font-size: 1.1rem;
+    padding: 14px 24px;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-large);
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.05s ease;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.upload-button:hover:not(:disabled) {
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.upload-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.upload-button:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .drop-zone {
+        padding: 32px 16px;
+    }
 }

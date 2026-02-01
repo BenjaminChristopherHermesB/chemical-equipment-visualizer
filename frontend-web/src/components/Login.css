@@ -1,70 +1,199 @@
 .login-container {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 2rem;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--md-sys-color-surface);
+    position: relative;
+}
+
+.theme-toggle-fab {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--md-sys-shape-corner-large);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--md-sys-elevation-3);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.theme-toggle-fab:hover {
+    box-shadow: var(--md-sys-elevation-4);
+    transform: scale(1.05);
+}
+
+.theme-toggle-fab:active {
+    transform: scale(0.95);
 }
 
 .login-card {
-    background: white;
-    border-radius: 16px;
-    padding: 3rem;
-    max-width: 450px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 420px;
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    padding: 40px 32px;
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
 }
 
 .login-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-    text-align: center;
+    font-family: var(--md-sys-typescale-headline-medium-font);
+    font-size: var(--md-sys-typescale-headline-medium-size);
+    font-weight: var(--md-sys-typescale-headline-medium-weight);
+    line-height: var(--md-sys-typescale-headline-medium-line-height);
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 8px;
 }
 
 .login-subtitle {
-    color: #666;
-    text-align: center;
-    margin-bottom: 2rem;
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.login-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-surface-container-high);
+    padding: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    border-radius: var(--md-sys-shape-corner-small);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tab-button.active {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.tab-button:hover:not(.active) {
+    background-color: rgba(103, 80, 164, 0.08);
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.error-message {
+    padding: 12px 16px;
+    border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
+    font-size: var(--md-sys-typescale-body-medium-size);
 }
 
-.form-group label {
-    font-weight: 500;
-    color: #333;
-    font-size: 0.9rem;
+.input-field {
+    position: relative;
 }
 
-.toggle-form {
-    text-align: center;
-    margin-top: 1.5rem;
-    color: #666;
+.input-field input {
+    width: 100%;
+    padding: 16px 16px 8px;
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    background-color: var(--md-sys-color-surface-container-highest);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    outline: none;
 }
 
-.link-button {
-    background: none;
+.input-field input:focus {
+    border-color: var(--md-sys-color-primary);
+    border-width: 2px;
+    padding: 15px 15px 7px;
+}
+
+.input-field label {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: var(--md-sys-typescale-body-large-size);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background-color: transparent;
+    padding: 0 4px;
+}
+
+.input-field input:focus+label,
+.input-field input:not(:placeholder-shown)+label {
+    top: -8px;
+    left: 12px;
+    font-size: 12px;
+    color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.submit-button {
+    padding: 14px 24px;
     border: none;
-    color: #646cff;
+    border-radius: var(--md-sys-shape-corner-large);
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
     cursor: pointer;
-    padding: 0;
-    font-weight: 500;
-    text-decoration: underline;
+    transition: box-shadow 0.2s ease, transform 0.05s ease;
+    box-shadow: var(--md-sys-elevation-1);
+    margin-top: 8px;
 }
 
-.link-button:hover {
-    color: #535bf2;
-    transform: none;
-    box-shadow: none;
+.submit-button:hover:not(:disabled) {
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.submit-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.submit-button:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        padding: 32px 24px;
+    }
+
+    .theme-toggle-fab {
+        top: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+    }
 }

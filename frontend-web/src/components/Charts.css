@@ -1,45 +1,31 @@
-.charts {
-    margin-top: 2rem;
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.charts h2 {
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
+.chart-section {
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: 24px;
+    box-shadow: var(--md-sys-elevation-2);
 }
 
-.charts-grid {
+.chart-section h3 {
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 20px 0;
+}
+
+.chart-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
 }
 
-.chart-card {
-    background: #f9f9f9;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.chart-card h3 {
-    color: #333;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.chart-container {
-    height: 300px;
-    position: relative;
-}
-
-.no-data {
-    text-align: center;
-    padding: 3rem;
-    color: #666;
-    font-size: 1.1rem;
-}
-
-@media (max-width: 1024px) {
-    .charts-grid {
+@media (max-width: 768px) {
+    .chart-grid {
         grid-template-columns: 1fr;
     }
 }
