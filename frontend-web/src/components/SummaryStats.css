@@ -1,6 +1,6 @@
 .summary-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-bottom: 24px;
     max-width: 100%;
@@ -9,7 +9,7 @@
 .stat-card {
     background-color: var(--md-sys-color-surface-container);
     border-radius: var(--md-sys-shape-corner-large);
-    padding: 20px;
+    padding: 24px;
     box-shadow: var(--md-sys-elevation-2);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
     min-width: 0;
@@ -56,12 +56,6 @@
     font-size: var(--md-sys-typescale-body-small-size);
     color: var(--md-sys-color-on-surface-variant);
     margin: 4px 0;
-}
-
-@media (max-width: 1200px) {
-    .summary-stats {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
 
 @media (max-width: 900px) {
