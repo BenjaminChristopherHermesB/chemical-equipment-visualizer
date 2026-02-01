@@ -28,14 +28,17 @@ const Login = ({ onLogin }) => {
                     setLoading(false);
                     return;
                 }
-                response = await authAPI.register(
-                    formData.username,
-                    formData.email,
-                    formData.password,
-                    formData.password2
-                );
+                response = await authAPI.register({
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password,
+                    password2: formData.password2
+                });
             } else {
-                response = await authAPI.login(formData.username, formData.password);
+                response = await authAPI.login({
+                    username: formData.username,
+                    password: formData.password
+                });
             }
 
             if (response.data && response.data.token) {
