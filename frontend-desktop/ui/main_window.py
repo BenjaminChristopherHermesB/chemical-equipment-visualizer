@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QTabWidget,
                              QPushButton, QFileDialog, QMessageBox, QMenuBar,
-                             QMenu, QAction, QLabel, QInputDialog, QHBoxLayout)
+                             QMenu, QAction, QLabel, QInputDialog, QHBoxLayout, QScrollArea)
 from PyQt5.QtCore import Qt
 from api.client import APIClient
 from ui.login_dialog import LoginDialog
@@ -63,8 +63,22 @@ class MainWindow(QMainWindow):
         upload_widget.setLayout(upload_layout)
         
         # Visualization tab
+        viz_tab = QWidget()
+        viz_tab_layout = QVBoxLayout(viz_tab)
+        viz_tab_layout.setContentsMargins(0, 0, 0, 0)
+
+        # Scroll area for visualization
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        
         viz_widget = QWidget()
         viz_layout = QVBoxLayout()
+        viz_layout.setSpacing(20)  # Add spacing between elements
+        viz_widget.setLayout(viz_layout)
+        
+        scroll_area.setWidget(viz_widget)
+        viz_tab_layout.addWidget(scroll_area)
         
         # Dataset header
         header_layout = QHBoxLayout()
@@ -86,13 +100,13 @@ class MainWindow(QMainWindow):
         
         # Data table
         self.data_table = DataTableWidget()
+        self.data_table.setMinimumHeight(400)  # Ensure table has enough height
         viz_layout.addWidget(self.data_table)
         
         # Charts
         self.charts_widget = ChartsWidget()
+        self.charts_widget.setMinimumHeight(800)  # Ensure charts have enough room
         viz_layout.addWidget(self.charts_widget)
-        
-        viz_widget.setLayout(viz_layout)
         
         # History tab
         self.history_widget = HistoryWidget(None)
@@ -100,7 +114,7 @@ class MainWindow(QMainWindow):
         
         # Add tabs
         self.tabs.addTab(upload_widget, 'Upload CSV')
-        self.tabs.addTab(viz_widget, 'Visualization')
+        self.tabs.addTab(viz_tab, 'Visualization')
         self.tabs.addTab(self.history_widget, 'History')
         
         main_layout.addWidget(self.tabs)
@@ -137,15 +151,8 @@ class MainWindow(QMainWindow):
     
     def show_login(self):
         """Show login dialog"""
-        base_url, ok = QInputDialog.getText(self, 'API URL', 
-                                            'Enter API Base URL:',
-                                            text='http://localhost:8000/api')
-        if not ok or not base_url:
-            QMessageBox.critical(self, 'Error', 'API URL is required')
-            self.close()
-            return
-        
-        self.api_client = APIClient(base_url)
+        # Use default production URL defined in APIClient
+        self.api_client = APIClient()
         self.history_widget.api_client = self.api_client
         
         login_dialog = LoginDialog(self.api_client, self)
