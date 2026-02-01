@@ -2,6 +2,7 @@
 Utility functions for CSV processing, statistics computation, and PDF generation.
 """
 import pandas as pd
+import numpy as np
 import io
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib import colors
@@ -106,9 +107,9 @@ def dataframe_to_dict(df):
         for key, value in record.items():
             if pd.isna(value) or value is None:
                 cleaned_record[key] = None
-            elif isinstance(value, (pd.np.integer, pd.np.int64, pd.np.int32)):
+            elif isinstance(value, (np.integer, np.int64, np.int32)):
                 cleaned_record[key] = int(value)
-            elif isinstance(value, (pd.np.floating, pd.np.float64, pd.np.float32)):
+            elif isinstance(value, (np.floating, np.float64, np.float32)):
                 cleaned_record[key] = float(value)
             else:
                 cleaned_record[key] = value
